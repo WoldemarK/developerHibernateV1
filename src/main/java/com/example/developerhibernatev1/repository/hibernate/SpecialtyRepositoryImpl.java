@@ -1,15 +1,10 @@
 package com.example.developerhibernatev1.repository.hibernate;
-
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.SpecialtyRepository;
-
 import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 import java.util.Optional;
-
 import static com.example.developerhibernatev1.util.HibernateSessionFactoryUtil.session;
-
 @RequiredArgsConstructor
 public class SpecialtyRepositoryImpl implements SpecialtyRepository {
     @Override

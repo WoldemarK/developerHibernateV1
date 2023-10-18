@@ -6,7 +6,7 @@ public class DeveloperHibernateV1Application {
     public static void main(String[] args) {
 
         DeveloperView view = new DeveloperView();
-        view.allDevelopers();
+
 
     }
 

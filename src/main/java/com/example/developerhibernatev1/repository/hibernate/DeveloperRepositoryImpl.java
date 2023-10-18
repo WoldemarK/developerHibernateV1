@@ -1,17 +1,12 @@
 package com.example.developerhibernatev1.repository.hibernate;
-
 import com.example.developerhibernatev1.model.Developer;
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.DeveloperRepository;
-import com.example.developerhibernatev1.util.HibernateSessionFactoryUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 import java.util.Optional;
-
 import static com.example.developerhibernatev1.util.HibernateSessionFactoryUtil.session;
-
 @RequiredArgsConstructor
 public class DeveloperRepositoryImpl implements DeveloperRepository {
     @Override
@@ -28,7 +23,6 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .getTransaction().commit();
         return Optional.of(developer);
     }
-
     @Override
     public Optional<Developer> update(Developer developer, Long id) {
         developer = Developer.builder()
@@ -45,7 +39,6 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .commit();
         return Optional.of(developer);
     }
-
     @Override
     public Optional<Developer> getId(Long id) {
         session()
@@ -57,7 +50,6 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .commit();
         return Optional.ofNullable(developer);
     }
-
     @Override
     @Transactional
     public List<Developer> getAll() {
@@ -72,7 +64,6 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .commit();
         return developers;
     }
-
     @Override
     public void deleteById(Long id) {
         session()
@@ -95,22 +86,19 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
         session().getTransaction().commit();
         return true;
     }
+    @Override
+    public  List<Developer> allInformation() {
+        session()
+                .beginTransaction();
+        List<Developer> developers = session()
+                .createQuery("from Developer")
+                .list();
+      session()
+              .getTransaction()
+              .commit();
 
-    //TODO all Info
-//    public List<Developer> allInformation() {
-//        session().beginTransaction();
-//        List<Developer> developers = session().createQuery("from Developer").getResultList();
-//        List
-//
-//        return developers;
-//    }
-//
-//    public Developer getAllInformationById(Long devId) {
-//        Developer developer = null;
-//
-//        return developer;
-//    }
-
+        return developers;
+    }
 
 }
 

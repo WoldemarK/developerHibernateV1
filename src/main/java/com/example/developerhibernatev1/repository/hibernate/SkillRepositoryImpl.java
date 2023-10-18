@@ -1,14 +1,10 @@
 package com.example.developerhibernatev1.repository.hibernate;
-
 import com.example.developerhibernatev1.model.Skill;
 import com.example.developerhibernatev1.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 import java.util.Optional;
-
 import static com.example.developerhibernatev1.util.HibernateSessionFactoryUtil.session;
-
 @RequiredArgsConstructor
 public class SkillRepositoryImpl implements SkillRepository {
     @Override
@@ -38,7 +34,6 @@ public class SkillRepositoryImpl implements SkillRepository {
         return Optional
                 .ofNullable(skill);
     }
-
     @Override
     public List<Skill> getAll() {
         session()
@@ -51,7 +46,6 @@ public class SkillRepositoryImpl implements SkillRepository {
                 .commit();
         return skills;
     }
-
     @Override
     public void deleteById(Long id) {
         session()
@@ -62,7 +56,6 @@ public class SkillRepositoryImpl implements SkillRepository {
         session()
                 .getTransaction().commit();
     }
-
     @Override
     public Optional<Skill> update(Skill skill, Long id) {
         skill = Skill.builder()

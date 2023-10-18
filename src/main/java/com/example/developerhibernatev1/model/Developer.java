@@ -30,7 +30,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@ToString
+@ToString(exclude = "skills")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
@@ -58,8 +58,6 @@ public class Developer {
             inverseJoinColumns = @JoinColumn(name = "skillID"))
     private List<Skill> skills;
 
-//      @Enumerated(EnumType.STRING)
-//    private Status status;
     public void addSkillToDeveloper(Skill skill) {
         if (this.skills == null) {
             this.skills = new ArrayList<>();

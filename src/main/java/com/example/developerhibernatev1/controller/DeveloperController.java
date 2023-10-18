@@ -26,17 +26,10 @@ public class DeveloperController {
     public void deleteById(Long id) {
         developerRepository.deleteById(id);
     }
-
-    //TODO all Info
     public List<Developer> allInformation() {
-        return null;
+        return developerRepository.allInformation();
     }
-
-    public Developer getAllInformationById(Long id) {
-        return null;
-    }
-
-    public Developer createDevAndAppointSpecialtyId(Developer developer, Long specialtyId) {
-        return null;
+    public boolean createDevAndAppointSpecialtyId(Long devId, Long specId) {
+        return developerRepository.assignmentDevSpecialty(devId, specId);
     }
 }
