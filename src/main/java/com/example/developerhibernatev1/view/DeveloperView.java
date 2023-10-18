@@ -10,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeveloperView {
 
-    private  final DeveloperController developerController = new DeveloperController(new DeveloperRepositoryImpl());
+    private  final DeveloperController developerController =
+            new DeveloperController(new DeveloperRepositoryImpl());
     public  void allDevelopers() {
         System.out.println(developerController.onlyDeveloperGetAll());
 
@@ -28,10 +29,6 @@ public class DeveloperView {
     developerController.deleteById(id);
     return true;
     }
-//TODO all Info
-//    public  void allInformation() {
-//
-//    }
     public  void getAllInformationById(Long id) {
 
     }
