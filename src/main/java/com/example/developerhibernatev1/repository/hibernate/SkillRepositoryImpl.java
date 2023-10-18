@@ -1,4 +1,4 @@
-package com.example.developerhibernatev1.repository.jdbc;
+package com.example.developerhibernatev1.repository.hibernate;
 
 import com.example.developerhibernatev1.model.Skill;
 import com.example.developerhibernatev1.repository.SkillRepository;

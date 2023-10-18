@@ -1,7 +1,8 @@
-package com.example.developerjdbs.controller;
+package com.example.developerhibernatev1.controller;
 
-import com.example.developerjdbs.model.Developer;
-import com.example.developerjdbs.repository.jdbc.JdbcDeveloperRepositoryImpl;
+import com.example.developerhibernatev1.model.Developer;
+import com.example.developerhibernatev1.repository.hibernate.DeveloperRepositoryImpl;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeveloperController {
 
-    private final JdbcDeveloperRepositoryImpl developerRepository;
+    private final DeveloperRepositoryImpl developerRepository;
     public List<Developer> onlyDeveloperGetAll() {
         return developerRepository.getAll();
     }
@@ -24,5 +25,18 @@ public class DeveloperController {
     }
     public void deleteById(Long id) {
         developerRepository.deleteById(id);
+    }
+
+    //TODO all Info
+    public List<Developer> allInformation() {
+        return null;
+    }
+
+    public Developer getAllInformationById(Long id) {
+        return null;
+    }
+
+    public Developer createDevAndAppointSpecialtyId(Developer developer, Long specialtyId) {
+        return null;
     }
 }

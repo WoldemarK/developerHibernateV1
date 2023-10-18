@@ -1,8 +1,10 @@
-package com.example.developerjdbs.repository;
+package com.example.developerhibernatev1.repository;
 
-import com.example.developerjdbs.model.Developer;
+import com.example.developerhibernatev1.model.Developer;
+
 
 public interface DeveloperRepository extends GenericRepository<Developer,Long> {
 
+    boolean assignmentDevSpecialty(Long devId,Long specId);
 
 }

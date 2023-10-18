@@ -1,13 +1,13 @@
 package com.example.developerhibernatev1;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.developerhibernatev1.view.DeveloperView;
 
-@SpringBootApplication
 public class DeveloperHibernateV1Application {
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DeveloperHibernateV1Application.class, args);
-	}
+        DeveloperView view = new DeveloperView();
+        view.allDevelopers();
+
+    }
 
 }

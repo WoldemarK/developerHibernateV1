@@ -1,6 +1,6 @@
-package com.example.developerjdbs.repository;
+package com.example.developerhibernatev1.repository;
 
-import com.example.developerjdbs.model.Specialty;
+import com.example.developerhibernatev1.model.Specialty;
 
 public interface SpecialtyRepository extends GenericRepository<Specialty,Long>{
 }

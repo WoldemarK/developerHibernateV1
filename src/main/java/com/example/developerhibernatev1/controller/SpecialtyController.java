@@ -1,7 +1,7 @@
-package com.example.developerjdbs.controller;
+package com.example.developerhibernatev1.controller;
 
-import com.example.developerjdbs.model.Specialty;
-import com.example.developerjdbs.repository.jdbc.JdbcSpecialtyRepositoryImpl;
+import com.example.developerhibernatev1.model.Specialty;
+import com.example.developerhibernatev1.repository.hibernate.SpecialtyRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SpecialtyController {
 
-    private final JdbcSpecialtyRepositoryImpl specialtyRepository;
+    private final SpecialtyRepositoryImpl specialtyRepository;
     public Specialty updateSpecialtyById(Specialty specialty, Long id) {
         return specialtyRepository.update(specialty, id).get();
     }

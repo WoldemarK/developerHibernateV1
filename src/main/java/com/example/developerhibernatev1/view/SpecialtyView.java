@@ -1,28 +1,25 @@
-package com.example.developerjdbs.view;
+package com.example.developerhibernatev1.view;
 
-import com.example.developerjdbs.controller.SkillController;
-import com.example.developerjdbs.controller.SpecialtyController;
-import com.example.developerjdbs.model.Skill;
-import com.example.developerjdbs.model.Specialty;
-
-import com.example.developerjdbs.repository.jdbc.JdbcSpecialtyRepositoryImpl;
+import com.example.developerhibernatev1.controller.SpecialtyController;
+import com.example.developerhibernatev1.model.Specialty;
+import com.example.developerhibernatev1.repository.hibernate.SpecialtyRepositoryImpl;
 
 public class SpecialtyView {
-    private static final SpecialtyController specialtyController = new SpecialtyController(new JdbcSpecialtyRepositoryImpl());
-    public static void allSpecialty() {
+    private  final SpecialtyController specialtyController = new SpecialtyController(new SpecialtyRepositoryImpl());
+    public  void allSpecialty() {
         System.out.println(specialtyController.onlySpecialtyGetAll());
 
     }
-    public static void specialtyById(Long id) {
+    public  void specialtyById(Long id) {
         System.out.println(specialtyController.onlySpecialtyById(id));
     }
-    public static void createSpecialty(Specialty specialty) {
+    public  void createSpecialty(Specialty specialty) {
         System.out.println(specialtyController.createOnlySpecialty(specialty));
     }
-    public static void updateSpecialty(Specialty specialty, Long id) {
+    public  void updateSpecialty(Specialty specialty, Long id) {
         System.out.println(specialtyController.updateSpecialtyById(specialty, id));
     }
-    public static boolean deleteSpecialtyById(Long id){
+    public  boolean deleteSpecialtyById(Long id){
         specialtyController.deleteSpecialtyById(id);
         return true;
     }

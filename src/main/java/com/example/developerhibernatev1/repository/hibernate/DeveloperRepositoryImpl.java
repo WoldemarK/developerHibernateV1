@@ -1,8 +1,9 @@
-package com.example.developerhibernatev1.repository.jdbc;
+package com.example.developerhibernatev1.repository.hibernate;
 
 import com.example.developerhibernatev1.model.Developer;
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.DeveloperRepository;
+import com.example.developerhibernatev1.util.HibernateSessionFactoryUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +20,7 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .firstName(developer.getFirstName())
                 .lastName(developer.getLastName())
                 .build();
-        session()
+         session()
                 .beginTransaction();
         session()
                 .persist(developer);

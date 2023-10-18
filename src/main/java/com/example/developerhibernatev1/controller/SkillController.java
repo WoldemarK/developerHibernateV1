@@ -1,20 +1,20 @@
-package com.example.developerjdbs.controller;
-
-import com.example.developerjdbs.model.Skill;
-import com.example.developerjdbs.repository.jdbc.JdbcSkillRepositoryImpl;
+package com.example.developerhibernatev1.controller;
+import com.example.developerhibernatev1.model.Skill;
+import com.example.developerhibernatev1.repository.hibernate.SkillRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class SkillController {
 
-    private final JdbcSkillRepositoryImpl skillRepository;
+    private final SkillRepositoryImpl skillRepository;
     public List<Skill> onlySkillGetAll() {
         return skillRepository.getAll();
     }
-    public Skill onlySkillById(Long id) {
-        return skillRepository.getId(id).get();
+    public Optional<Skill> onlySkillById(Long id) {
+        return skillRepository.getId(id);
     }
     public Skill createOnlySkill(Skill skill)  {
         return skillRepository.save(skill).get();

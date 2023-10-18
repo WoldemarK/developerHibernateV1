@@ -1,31 +1,42 @@
-package com.example.developerjdbs.view;
+package com.example.developerhibernatev1.view;
 
-import com.example.developerjdbs.controller.DeveloperController;
-import com.example.developerjdbs.model.Developer;
+import com.example.developerhibernatev1.controller.DeveloperController;
+import com.example.developerhibernatev1.model.Developer;
+import com.example.developerhibernatev1.repository.DeveloperRepository;
+import com.example.developerhibernatev1.repository.hibernate.DeveloperRepositoryImpl;
 
-import com.example.developerjdbs.repository.jdbc.JdbcDeveloperRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class DeveloperView {
-    private static final DeveloperController developerController = new DeveloperController(new JdbcDeveloperRepositoryImpl());
 
-    public static void allDevelopers() {
+    private  final DeveloperController developerController = new DeveloperController(new DeveloperRepositoryImpl());
+    public  void allDevelopers() {
         System.out.println(developerController.onlyDeveloperGetAll());
 
     }
-    public static void developerById(Long id) {
+    public  void developerById(Long id) {
         System.out.println(developerController.onlyDeveloperById(id));
     }
-    public static void createDeveloper(Developer developer) {
+    public void createDeveloper(Developer developer) {
         System.out.println(developerController.createOnlyDeveloper(developer));
     }
-    public static void updateDeveloper(Developer developer, Long id) {
+    public  void updateDeveloper(Developer developer, Long id) {
         System.out.println(developerController.updateDeveloperById(developer, id));
     }
-    public static boolean deleteDeveloperById(Long id){
+    public  boolean deleteDeveloperById(Long id){
     developerController.deleteById(id);
     return true;
+    }
+//TODO all Info
+//    public  void allInformation() {
+//
+//    }
+    public  void getAllInformationById(Long id) {
+
+    }
+    public  void createDevAndAppointSpecialtyId(Developer developer, Long specialtyId) {
+
     }
 
 }

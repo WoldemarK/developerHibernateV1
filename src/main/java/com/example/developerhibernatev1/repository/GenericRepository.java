@@ -1,4 +1,4 @@
-package com.example.developerjdbs.repository;
+package com.example.developerhibernatev1.repository;
 
 import java.util.List;
 import java.util.Optional;

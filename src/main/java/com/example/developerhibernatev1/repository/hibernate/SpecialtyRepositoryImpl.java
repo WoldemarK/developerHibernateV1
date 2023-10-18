@@ -1,11 +1,10 @@
-package com.example.developerhibernatev1.repository.jdbc;
+package com.example.developerhibernatev1.repository.hibernate;
 
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.SpecialtyRepository;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
