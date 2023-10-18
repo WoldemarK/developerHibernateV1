@@ -2,7 +2,7 @@ package com.example.developerhibernatev1.view;
 
 import com.example.developerhibernatev1.controller.DeveloperController;
 import com.example.developerhibernatev1.model.Developer;
-import com.example.developerhibernatev1.repository.DeveloperRepository;
+
 import com.example.developerhibernatev1.repository.hibernate.DeveloperRepositoryImpl;
 
 import lombok.RequiredArgsConstructor;
