@@ -52,7 +52,7 @@ public class SkillRepositoryImpl implements SkillRepository {
                 .beginTransaction();
         Skill skill = session().get(Skill.class, id);
         session()
-                .delete(skill);
+                .remove(skill);
         session()
                 .getTransaction().commit();
     }

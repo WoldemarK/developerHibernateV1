@@ -1,6 +1,6 @@
 package com.example.developerhibernatev1.view;
 
-import com.example.developerhibernatev1.controller.SpecialtyController;
+import com.example.developerhibernatev1.service.SpecialtyController;
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.hibernate.SpecialtyRepositoryImpl;
 

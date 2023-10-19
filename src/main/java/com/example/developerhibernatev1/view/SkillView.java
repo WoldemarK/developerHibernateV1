@@ -1,6 +1,6 @@
 package com.example.developerhibernatev1.view;
 
-import com.example.developerhibernatev1.controller.SkillController;
+import com.example.developerhibernatev1.service.SkillController;
 import com.example.developerhibernatev1.model.Skill;
 import com.example.developerhibernatev1.repository.hibernate.SkillRepositoryImpl;
 

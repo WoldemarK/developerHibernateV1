@@ -43,6 +43,10 @@ public class Skill {
             inverseJoinColumns = @JoinColumn(name = "developerID"))
     private List<Developer> developers;
 
+    public Skill(Long id) {
+        this.id = id;
+    }
+
     public void addDeveloperToSkill(Developer developer) {
         if (this.developers == null) {
             this.developers = new ArrayList<>();

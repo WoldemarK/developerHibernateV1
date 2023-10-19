@@ -19,6 +19,8 @@
         <junit-jupiter-engine.versionl>5.8.1</junit-jupiter-engine.versionl>
         <hibernate-core.versionl>6.1.7.Final</hibernate-core.versionl>
         <hibernate-commons-annotations.versionl>3.2.0.Final</hibernate-commons-annotations.versionl>
+        <org.apache.maven.plugins.versionl>3.1.2</org.apache.maven.plugins.versionl>
+        <assertj-core.versionl>3.24.2</assertj-core.versionl>
     </properties>
     <dependencies>
         <dependency>
@@ -66,6 +68,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.versionl}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate-core.versionl}</version>
@@ -79,7 +87,11 @@
 
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${org.apache.maven.plugins.versionl}</version>
+            </plugin>
         </plugins>
     </build>
 
