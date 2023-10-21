@@ -1,4 +1,4 @@
-package com.example.developerhibernatev1.service;
+package com.example.developerhibernatev1.controller;
 
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.hibernate.SpecialtyRepositoryImpl;

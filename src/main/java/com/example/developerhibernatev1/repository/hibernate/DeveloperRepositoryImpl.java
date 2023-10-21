@@ -1,11 +1,17 @@
 package com.example.developerhibernatev1.repository.hibernate;
+
+import com.example.developerhibernatev1.exception.NotFoundException;
 import com.example.developerhibernatev1.model.Developer;
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.DeveloperRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
 import static com.example.developerhibernatev1.util.HibernateSessionFactoryUtil.session;
 @RequiredArgsConstructor
 public class DeveloperRepositoryImpl implements DeveloperRepository {
@@ -15,7 +21,7 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .firstName(developer.getFirstName())
                 .lastName(developer.getLastName())
                 .build();
-         session()
+        session()
                 .beginTransaction();
         session()
                 .persist(developer);
@@ -39,6 +45,7 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .commit();
         return Optional.of(developer);
     }
+
     @Override
     public Optional<Developer> getId(Long id) {
         session()
@@ -66,12 +73,11 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
     }
     @Override
     public void deleteById(Long id) {
-        session()
-                .beginTransaction();
-        Developer developer = session()
-                .get(Developer.class, id);
-        session()
-                .remove(id);
+        session().beginTransaction();
+        Optional<Developer> developer = Optional.ofNullable(session().get(Developer.class, id));
+        if (developer.isPresent()) {
+            session().remove(developer);
+        } else throw new NotFoundException("По данному запросу ID не найден " + id);
         session()
                 .getTransaction()
                 .commit();
@@ -79,23 +85,27 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
     @Override
     public boolean assignmentDevSpecialty(Long devId, Long specId) {
         session().beginTransaction();
-        Developer developer = session().find(Developer.class,devId);
-        Specialty specialty = session().find(Specialty.class,specId);
+        Developer developer = Objects.requireNonNull(session()
+                .find(Developer.class, devId), "По данному запросу ID не найден " + devId);
+        Specialty specialty = Objects.requireNonNull(session()
+                .find(Specialty.class, specId), "По данному запросу ID не найден " + specId);
+
         developer.setSpecialty(specialty);
         session().persist(developer);
-        session().getTransaction().commit();
+        session()
+                .getTransaction()
+                .commit();
         return true;
     }
     @Override
-    public  List<Developer> allInformation() {
-        session()
-                .beginTransaction();
+    public List<Developer> allInformation() {
+        session().beginTransaction();
         List<Developer> developers = session()
                 .createQuery("from Developer")
                 .list();
-      session()
-              .getTransaction()
-              .commit();
+        session()
+                .getTransaction()
+                .commit();
 
         return developers;
     }

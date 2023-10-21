@@ -1,4 +1,5 @@
 package com.example.developerhibernatev1.repository.hibernate;
+import com.example.developerhibernatev1.exception.NotFoundException;
 import com.example.developerhibernatev1.model.Skill;
 import com.example.developerhibernatev1.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,9 @@ public class SkillRepositoryImpl implements SkillRepository {
             skill = Skill.builder()
                     .name(skill.getName())
                     .build();
+            if (skill.getName().isEmpty()){
+                throw new NotFoundException("Skill присутствует в системе " + skill.getName());
+            }
             session().beginTransaction();
             session().persist(skill);
             session().getTransaction().commit();
@@ -20,14 +24,13 @@ public class SkillRepositoryImpl implements SkillRepository {
             session().close();
         }
 
-        return Optional.ofNullable(skill);
+        return Optional.of(skill);
     }
     @Override
     public Optional<Skill> getId(Long id) {
         session()
                 .beginTransaction();
-        Skill skill = session()
-                .get(Skill.class, id);
+        Skill skill = session().get(Skill.class, id);
         session()
                 .getTransaction()
                 .commit();
@@ -50,11 +53,13 @@ public class SkillRepositoryImpl implements SkillRepository {
     public void deleteById(Long id) {
         session()
                 .beginTransaction();
-        Skill skill = session().get(Skill.class, id);
+        Optional<Skill> skill = Optional.ofNullable(session().get(Skill.class, id));
+        if (skill.isPresent()){
+            session().remove(skill);
+        }else throw new NotFoundException("По данному запросу ID не найден " + id);
         session()
-                .remove(skill);
-        session()
-                .getTransaction().commit();
+                .getTransaction()
+                .commit();
     }
     @Override
     public Optional<Skill> update(Skill skill, Long id) {

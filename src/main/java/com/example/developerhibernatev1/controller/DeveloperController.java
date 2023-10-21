@@ -1,5 +1,6 @@
-package com.example.developerhibernatev1.service;
+package com.example.developerhibernatev1.controller;
 
+import com.example.developerhibernatev1.exception.NotFoundException;
 import com.example.developerhibernatev1.model.Developer;
 import com.example.developerhibernatev1.repository.hibernate.DeveloperRepositoryImpl;
 
@@ -15,13 +16,13 @@ public class DeveloperController {
         return developerRepository.getAll();
     }
     public Developer onlyDeveloperById(Long id) {
-        return developerRepository.getId(id).get();
+        return developerRepository.getId(id).orElseThrow(()->new NotFoundException("По данному запросу ID не найден " + id));
     }
     public Developer createOnlyDeveloper(Developer developer) {
         return developerRepository.save(developer).get();
     }
     public Developer updateDeveloperById(Developer developer, Long id) {
-        return developerRepository.update(developer, id).get();
+        return developerRepository.update(developer, id).orElseThrow(()->new NotFoundException("По данному запросу ID не найден " + id));
     }
     public void deleteById(Long id) {
         developerRepository.deleteById(id);

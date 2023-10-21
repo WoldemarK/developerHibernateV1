@@ -1,6 +1,6 @@
 package com.example.developerhibernatev1.view;
 
-import com.example.developerhibernatev1.service.DeveloperController;
+import com.example.developerhibernatev1.controller.DeveloperController;
 import com.example.developerhibernatev1.model.Developer;
 
 import com.example.developerhibernatev1.repository.hibernate.DeveloperRepositoryImpl;
@@ -16,7 +16,7 @@ public class DeveloperView {
         System.out.println(developerController.onlyDeveloperGetAll());
 
     }
-    public  void developerById(Long id) {
+    public  void getByIdDeveloper(Long id) {
         System.out.println(developerController.onlyDeveloperById(id));
     }
     public void createDeveloper(Developer developer) {
@@ -32,8 +32,9 @@ public class DeveloperView {
     public  void getAllInformationById(Long id) {
 
     }
-    public  void createDevAndAppointSpecialtyId(Developer developer, Long specialtyId) {
-
+    public boolean assignmentDevSpecialty(Long devId, Long specId){
+        developerController.createDevAndAppointSpecialtyId(devId,specId);
+        return true;
     }
 
 }
