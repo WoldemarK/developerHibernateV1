@@ -1,79 +1,80 @@
 package com.example.developerhibernatev1.repository.hibernate;
+
 import com.example.developerhibernatev1.exception.NotFoundException;
 import com.example.developerhibernatev1.model.Skill;
 import com.example.developerhibernatev1.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
+
 import java.util.List;
 import java.util.Optional;
+
 import static com.example.developerhibernatev1.util.HibernateSessionFactoryUtil.session;
+
 @RequiredArgsConstructor
 public class SkillRepositoryImpl implements SkillRepository {
     @Override
     public Optional<Skill> save(Skill skill) {
-        try {
+        try(Session session = session()) {
             skill = Skill.builder()
                     .name(skill.getName())
                     .build();
-            if (skill.getName().isEmpty()){
-                throw new NotFoundException("Skill присутствует в системе " + skill.getName());
-            }
-            session().beginTransaction();
-            session().persist(skill);
-            session().getTransaction().commit();
-        } finally {
-            session().close();
-        }
+            session.beginTransaction();
 
+            List<Skill> skills = getAll();
+            for (Skill res:skills){
+                if (res.getName().equals(skill.getName())){
+                    throw new NotFoundException("Такой Skill имеется не нужно повторно его создавать " + skill.getName());
+                }
+            }
+            session.persist(skill);
+            session.getTransaction().commit();
+        }
         return Optional.of(skill);
     }
     @Override
     public Optional<Skill> getId(Long id) {
-        session()
-                .beginTransaction();
-        Skill skill = session().get(Skill.class, id);
-        session()
-                .getTransaction()
-                .commit();
-        return Optional
-                .ofNullable(skill);
+        try (Session session = session()) {
+            session.beginTransaction();
+            Optional<Skill> skill = Optional.ofNullable(session().get(Skill.class, id));
+            if (skill.isPresent()) {
+                session.getTransaction().commit();
+                return skill;
+            }
+        }
+        throw new NotFoundException("По данному запросу ID не чего не найдено " + id);
     }
     @Override
     public List<Skill> getAll() {
-        session()
-                .beginTransaction();
-        List skills = session()
-                .createQuery("from Skill")
-                .getResultList();
-        session()
-                .getTransaction()
-                .commit();
-        return skills;
+        try (Session session = session()) {
+            session.beginTransaction();
+            List<Skill> skills = session.createQuery("from Skill").getResultList();
+            session.getTransaction().commit();
+            return skills;
+        }
     }
     @Override
     public void deleteById(Long id) {
-        session()
-                .beginTransaction();
-        Optional<Skill> skill = Optional.ofNullable(session().get(Skill.class, id));
-        if (skill.isPresent()){
-            session().remove(skill);
-        }else throw new NotFoundException("По данному запросу ID не найден " + id);
-        session()
-                .getTransaction()
-                .commit();
+        try (Session session = session()) {
+            session.beginTransaction();
+            Skill skill = session.get(Skill.class, id);
+            session.remove(skill);
+            session.getTransaction().commit();
+        }
     }
     @Override
     public Optional<Skill> update(Skill skill, Long id) {
-        skill = Skill.builder()
-                .id(id)
-                .name(skill.getName())
-                .build();
-        session()
-                .beginTransaction();
-        session()
-                .saveOrUpdate(skill);
-        session()
-                .getTransaction()
-                .commit();
-        return Optional.of(skill);
+        try (Session session = session()) {
+            skill = Skill.builder()
+                    .id(id)
+                    .name(skill.getName())
+                    .build();
+            session.beginTransaction();
+            session.saveOrUpdate(skill);
+            session.getTransaction().commit();
+            return Optional.of(skill);
+        }
+
     }
+
 }

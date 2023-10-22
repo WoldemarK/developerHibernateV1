@@ -32,6 +32,7 @@ public class HibernateSessionFactoryUtil {
         return sessionFactory;
     }
     public static Session session() {
-        return getSessionFactory().getCurrentSession();
+        //return getSessionFactory().getCurrentSession();
+        return getSessionFactory().openSession();
     }
 }

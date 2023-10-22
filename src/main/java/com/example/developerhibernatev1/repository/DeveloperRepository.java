@@ -7,7 +7,4 @@ import java.util.List;
 
 public interface DeveloperRepository extends GenericRepository<Developer,Long> {
 
-    boolean assignmentDevSpecialty(Long devId,Long specId);
-    List<Developer> allInformation();
-
 }

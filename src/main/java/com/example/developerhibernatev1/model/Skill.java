@@ -23,11 +23,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder(toBuilder = true)
-@ToString(exclude = "developers")
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "skill")
+@Builder(toBuilder = true)
 public class Skill {
 
     @Id
@@ -37,20 +37,6 @@ public class Skill {
     @Column(name = "name", nullable = false, length = 30, unique = true)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "developer_skill",
-            joinColumns = @JoinColumn(name = "skillID"),
-            inverseJoinColumns = @JoinColumn(name = "developerID"))
-    private List<Developer> developers;
 
-    public Skill(Long id) {
-        this.id = id;
-    }
 
-    public void addDeveloperToSkill(Developer developer) {
-        if (this.developers == null) {
-            this.developers = new ArrayList<>();
-        }
-        this.developers.add(developer);
-    }
 }

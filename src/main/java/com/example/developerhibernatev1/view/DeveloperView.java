@@ -29,13 +29,8 @@ public class DeveloperView {
     developerController.deleteById(id);
     return true;
     }
-    public  void getAllInformationById(Long id) {
 
-    }
-    public boolean assignmentDevSpecialty(Long devId, Long specId){
-        developerController.createDevAndAppointSpecialtyId(devId,specId);
-        return true;
-    }
+
 
 }
 

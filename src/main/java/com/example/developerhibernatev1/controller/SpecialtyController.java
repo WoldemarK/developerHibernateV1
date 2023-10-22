@@ -1,5 +1,6 @@
 package com.example.developerhibernatev1.controller;
 
+import com.example.developerhibernatev1.exception.NotFoundException;
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.hibernate.SpecialtyRepositoryImpl;
 import lombok.RequiredArgsConstructor;

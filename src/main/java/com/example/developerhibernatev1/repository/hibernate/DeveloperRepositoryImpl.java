@@ -82,33 +82,6 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
                 .getTransaction()
                 .commit();
     }
-    @Override
-    public boolean assignmentDevSpecialty(Long devId, Long specId) {
-        session().beginTransaction();
-        Developer developer = Objects.requireNonNull(session()
-                .find(Developer.class, devId), "По данному запросу ID не найден " + devId);
-        Specialty specialty = Objects.requireNonNull(session()
-                .find(Specialty.class, specId), "По данному запросу ID не найден " + specId);
-
-        developer.setSpecialty(specialty);
-        session().persist(developer);
-        session()
-                .getTransaction()
-                .commit();
-        return true;
-    }
-    @Override
-    public List<Developer> allInformation() {
-        session().beginTransaction();
-        List<Developer> developers = session()
-                .createQuery("from Developer")
-                .list();
-        session()
-                .getTransaction()
-                .commit();
-
-        return developers;
-    }
 
 }
 

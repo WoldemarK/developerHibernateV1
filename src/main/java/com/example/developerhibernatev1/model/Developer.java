@@ -14,6 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedEntityGraphs;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -26,7 +29,11 @@ import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = "skill-entity-graph", attributeNodes = {
+                @NamedAttributeNode(value = "skills")
+        })
+})
 @Entity
 @Setter
 @Getter
@@ -47,15 +54,14 @@ public class Developer {
     @Column(name = "lastName")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "specialtyId")
     private Specialty specialty;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "developer_skill",
-            joinColumns = @JoinColumn(name = "developerID"),
-            inverseJoinColumns = @JoinColumn(name = "skillID"))
+            joinColumns = @JoinColumn(name = "developer_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
 
     public void addSkillToDeveloper(Skill skill) {
