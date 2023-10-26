@@ -1,11 +1,10 @@
 #  REST API
->- Необходимо реализовать REST API, которое взаимодействует с файловым хранилищем и предоставляет 
-возможность получать доступ к файлам и истории загрузок.
+>-Необходимо реализовать консольное CRUD приложение, которое взаимодействует с БД и позволяет выполнять все CRUD операции над сущностями:
 
 ### Сущности:
->- User -> Integer id, String name, List<Event> events
->- Event -> Integer id, User user, File file
->- File -> Integer id, String name, String filePath
+>- Developer 
+>- Skill 
+>- Specialty 
 
 ### Требования:
 >- Все CRUD операции для каждой из сущностей
@@ -14,14 +13,13 @@
 >- Для взаимодействия с БД - Hibernate 
 >- Для конфигурирования Hibernate - аннотации 
 >- Инициализация БД должна быть реализована с помощью flyway 
->- Взаимодействие с пользователем необходимо реализовать с помощью Postman (https://www.getpostman.com/)
+>- Сервисный слой приложения должен быть покрыт юнит тестами (junit + mockito)
+
 
 ### Технологии: 
 >- Java, 
->- MySQL, 
->- Hibernate, 
->- HTTP, 
->- Servlets, 
+>- PostgreSQL, 
+>- Hibernate,  
 >- Maven, 
 >- Flyway, 
->- Swagger.
+
