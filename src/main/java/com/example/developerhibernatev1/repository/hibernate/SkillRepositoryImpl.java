@@ -1,6 +1,7 @@
 package com.example.developerhibernatev1.repository.hibernate;
 
 import com.example.developerhibernatev1.exception.NotFoundException;
+import com.example.developerhibernatev1.model.Developer;
 import com.example.developerhibernatev1.model.Skill;
 import com.example.developerhibernatev1.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +28,14 @@ public class SkillRepositoryImpl implements SkillRepository {
                     throw new NotFoundException("Такой Skill имеется не нужно повторно его создавать " + skill.getName());
                 }
             }
-            session.persist(skill);
+            Skill createdDeveloper = session.merge(skill);
             session.getTransaction().commit();
+            return Optional.of(createdDeveloper);
         }
-        return Optional.of(skill);
     }
     @Override
     public Optional<Skill> getId(Long id) {
         try (Session session = session()) {
-            session.beginTransaction();
             Optional<Skill> skill = Optional.ofNullable(session().get(Skill.class, id));
             if (skill.isPresent()) {
                 session.getTransaction().commit();
@@ -47,17 +47,14 @@ public class SkillRepositoryImpl implements SkillRepository {
     @Override
     public List<Skill> getAll() {
         try (Session session = session()) {
-            session.beginTransaction();
-            List<Skill> skills = session.createQuery("from Skill").getResultList();
-            session.getTransaction().commit();
-            return skills;
+            return session.createQuery("from Skill").getResultList();
         }
     }
     @Override
     public void deleteById(Long id) {
-        try (Session session = session()) {
+        try (Session session = session()){
             session.beginTransaction();
-            Skill skill = session.get(Skill.class, id);
+            Skill skill = (Skill) session.createQuery("from Skill d where d.id=:id").getSingleResult();
             session.remove(skill);
             session.getTransaction().commit();
         }

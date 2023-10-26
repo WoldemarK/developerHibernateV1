@@ -32,9 +32,10 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
         }
 
     }
+
     @Override
     public Optional<Developer> update(Developer developer, Long id) {
-        try (Session session = session()){
+        try (Session session = session()) {
             developer = Developer.builder()
                     .id(id)
                     .firstName(developer.getFirstName())
@@ -46,6 +47,7 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
             return Optional.of(developer);
         }
     }
+
     @Override
     public Optional<Developer> getId(Long id) {
         try (Session session = session()) {
@@ -58,22 +60,20 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
         }
         throw new NotFoundException("По данному запросу ID не чего не найдено " + id);
     }
+
     @Override
     @Transactional
     public List<Developer> getAll() {
-        try (Session session = session()){
-            session.beginTransaction();
-            List<Developer> developers = session.createQuery("from Developer").list();
-            session.getTransaction().commit();
-            return developers;
+        try (Session session = session()) {
+            return session.createQuery("FROM Developer d LEFT JOIN FETCH d.skills").list();
         }
-
     }
+
     @Override
     public void deleteById(Long id) {
         try (Session session = session()){
             session.beginTransaction();
-            Queue<Developer> developer = (Queue<Developer>) session.createQuery("from Developer d where d.id=:id");
+            Developer developer = (Developer) session.createQuery("from Developer d where d.id=:id").getSingleResult();
             session.remove(developer);
             session.getTransaction().commit();
         }

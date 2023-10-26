@@ -1,6 +1,7 @@
 package com.example.developerhibernatev1.repository.hibernate;
 
 import com.example.developerhibernatev1.exception.NotFoundException;
+import com.example.developerhibernatev1.model.Developer;
 import com.example.developerhibernatev1.model.Specialty;
 import com.example.developerhibernatev1.repository.SpecialtyRepository;
 import lombok.RequiredArgsConstructor;
@@ -64,10 +65,7 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
     @Override
     public List<Specialty> getAll() {
         try (Session session = session()) {
-            session.beginTransaction();
-            List<Specialty> specialties = session.createQuery("from Specialty").getResultList();
-            session.getTransaction().commit();
-            return specialties;
+            return session.createQuery("from Specialty").getResultList();
         }
     }
 
@@ -75,7 +73,7 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
     public void deleteById(Long id) {
         try (Session session = session()) {
             session.beginTransaction();
-            Specialty specialty = session.get(Specialty.class, id);
+            Specialty specialty = (Specialty) session.createQuery("from Specialty d where d.id=:id").getSingleResult();
             session.remove(specialty);
             session.getTransaction().commit();
         }

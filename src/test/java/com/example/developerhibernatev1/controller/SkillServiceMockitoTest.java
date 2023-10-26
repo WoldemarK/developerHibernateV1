@@ -9,29 +9,58 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class SkillServiceMockitoTest {
-    @InjectMocks
-    private SkillRepositoryImpl skillRepository;
-    @Mock
-    private SkillRepository repository;
-    private Skill skill;
-    private Long GET_SKILL_ID = 1L;
+    private SkillRepositoryImpl skillRepository = Mockito.mock(SkillRepositoryImpl.class);
+
+    private SkillController skillControllerUnderTest = new SkillController(skillRepository);
+    private Long SKILL_ID = 1L;
+
+    private Skill getSkill() {
+        return Skill.builder()
+                .name("Hibernate1")
+                .build();
+
+    }
 
     @BeforeEach
-    void initSkill() {
-        skill = Skill.builder().id(GET_SKILL_ID).name("Hibernate").build();
+    void init() {
     }
 
     @Test
     @DisplayName("Получение всех Skills")
     void getAllSkill() {
-        Optional<List<Skill>> skills = Optional.ofNullable(skillRepository.getAll());
-        assertTrue(skills.isPresent());
+        when(skillRepository.getAll()).thenReturn(List.of(getSkill()));
+        List<Skill> skills = skillControllerUnderTest.onlySkillGetAll();
+        assertFalse(skills.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Получение Skill по ID")
+    void getId() {
+        Optional<Skill> skill = skillRepository.getId(SKILL_ID);
+        assertNotNull(skill);
+        assertEquals(skill.get().getId(), SKILL_ID);
+    }
+
+    @Test
+    @DisplayName("Сохранение Skill")
+    void createSkill() {
+        skillRepository.save(getSkill());
+        List<Skill> skills = skillRepository.getAll();
+        assertThat(skills).hasSize(8);
     }
 
 }

@@ -39,9 +39,9 @@ public class DeveloperHibernateV1Application {
 //                        .firstName("TestF2")
 //                        .lastName("TestL2")
 //                .build(),8L);
-//        developerView.getByIdDeveloper(122L);
+        developerView.getByIdDeveloper(122L);
 //        developerView.allDevelopers();
-        developerView.getByIdDeveloper(8L);
+//        developerView.getByIdDeveloper(8L);
 
     }
 

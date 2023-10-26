@@ -64,10 +64,5 @@ public class Developer {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
 
-    public void addSkillToDeveloper(Skill skill) {
-        if (this.skills == null) {
-            this.skills = new ArrayList<>();
-        }
-        this.skills.add(skill);
-    }
+
 }
